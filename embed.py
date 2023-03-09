@@ -2,7 +2,7 @@ import discord
 import main
 import datetime
 from discord.ext import commands
-from config import TOKEN, CHANNEL_NAME
+from config import TOKEN, CHANNEL_NAME, COMMAND_PREFIX
 
 product_title = main.hypeboost_product_title
 product_picture = main.product_picture
@@ -18,7 +18,10 @@ if not TOKEN:
 if not CHANNEL_NAME:
     raise ValueError("The Channel-name was not included in the config.py file")
 
-bot = commands.Bot(command_prefix="$", intents=discord.Intents.all())
+if not COMMAND_PREFIX:
+    raise ValueError("The Command-Prefix was not included in the config.py file")
+
+bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=discord.Intents.all())
 
 @bot.event
 async def on_ready():
@@ -33,11 +36,12 @@ async def on_message(message):
   message_content = message.content.lower()
 
   if message.channel.name == CHANNEL_NAME:
-    if message.content.startswith(f'$h'):
+    if message.content.startswith(COMMAND_PREFIX):
       await message.channel.send("Scraping...")
 
-      if f'$h' in message_content:
-        SKU = message_content.replace('$h ', '')
+      if COMMAND_PREFIX in message_content:
+        SKU_raw = message_content.replace(COMMAND_PREFIX, '')
+        SKU = SKU_raw.replace(" ", "")
         product_title_output = product_title(SKU)
         product_picture_output = product_picture(SKU)
         hypeboost_sizes_output = hypeboost_sizes(SKU)
