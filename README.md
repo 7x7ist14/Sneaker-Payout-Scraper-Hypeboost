@@ -30,5 +30,8 @@ A picture of the product is also added to the discord message.
 # Return Message Example:
 The return message looks like this:
 
+![image](https://user-images.githubusercontent.com/103487648/224495572-27772f72-2b86-4871-84e0-dce8cf67b9c9.png)
 
-![image](https://user-images.githubusercontent.com/103487648/224119982-919a8217-f657-4254-8b2c-a506b7f430b8.png)
+![image](https://user-images.githubusercontent.com/103487648/224495586-7e1c802d-8bf7-42ea-8485-5b01586cc3ab.png)
+
+
