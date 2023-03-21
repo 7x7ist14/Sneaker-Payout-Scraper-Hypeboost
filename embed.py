@@ -11,6 +11,7 @@ hypeboost_product_url = main.hypeboost_product_url
 stockx_product_url = main.stockx_url
 restocks_product_url = main.restocks_url
 goat_product_url = main.product_goat
+sneakit_product_url = main.sneakit_product_url
 
 if not TOKEN:
     raise ValueError("The Bot-Token was not included in the config.py file")
@@ -49,6 +50,7 @@ async def on_message(message):
         stockx_product_url_output = stockx_product_url(SKU)
         restocks_product_url_output = restocks_product_url(SKU)
         goat_product_url_output = goat_product_url(SKU)
+        sneakit_product_url_output = sneakit_product_url(SKU)
 
         embed = discord.Embed(
           title=product_title_output,
@@ -72,7 +74,7 @@ async def on_message(message):
         )
         embed.add_field(
           name="Open Product on:",
-          value=f"[[StockX]]({stockx_product_url_output})      " f"[[Restocks]]({restocks_product_url_output})      " f"[[Hypeboost]]({hypeboost_product_url_output})      " f"[[GOAT]]({goat_product_url_output})      ",
+          value=f"[[StockX]]({stockx_product_url_output})      " f"[[Restocks]]({restocks_product_url_output})      " f"[[Hypeboost]]({hypeboost_product_url_output})      " f"[[GOAT]]({goat_product_url_output})      " f"[[Sneakit]]({sneakit_product_url_output})      ",
           inline=False
         )
         embed.set_footer(
