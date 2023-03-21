@@ -1,5 +1,6 @@
 import json
 import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 
 
@@ -104,7 +105,6 @@ def product_picture(SKU):
   print('Scraped image!')
   return image
 
-
 def product_goat(SKU):
   url = "https://ac.cnstrc.com/search/" + SKU
   querystring = {"c":"ciojs-client-2.29.12","key":"key_XT7bjdbvjgECO5d8","i":"f8b0a5f2-bc6b-4626-b980-74bbc3b45edf","s":"1","num_results_per_page":"25","_dt":"1678011980760"}
@@ -130,3 +130,36 @@ def product_goat(SKU):
   product_url = "https://www.goat.com/sneakers/" + output_slug
   print("Scraped GOAT product URL!")
   return product_url
+
+def sneakit_url(SKU):
+  try:
+    produkt_code = SKU
+    global url
+    url = f"https://sneakit.com/search/products/{produkt_code}?query={produkt_code}&page=1"
+    print("Scraped Sneakit URL!", url)
+    return url
+  except:
+    return ("https://sneakit.com/")
+
+def sneakit_product_url(SKU):
+  try:
+    raw = sneakit_info(SKU)
+    slug = raw['data'][0]['slug']
+    p_url = "https://sneakit.com/product/" + slug
+    print("Scraped Sneakit Product URL:" + p_url)
+    return p_url
+  except:
+    return ("https://sneakit.com/")
+
+
+def sneakit_info(SKU):
+  try:
+    scraper = cloudscraper.create_scraper()
+    sneakit_url_r = sneakit_url(SKU)
+    r = scraper.get(sneakit_url_r)
+    global output
+    output = json.loads(r.text)
+    print("Scraped Sneakit info!")
+    return output
+  except:
+    return ("error")
